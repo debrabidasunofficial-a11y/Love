@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Dearest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #070913;
+            --surface-color: #121824;
+            --surface-hover: #1b2230;
+            --border-color: rgba(212, 175, 55, 0.25);
+            --text-main: #f0f4f8;
+            --text-muted: #94a3b8;
+            --accent-gold: #d4af37;
+            --transition-smooth: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            background-image: linear-gradient(135deg, #070913 0%, #0b0f19 50%, #121824 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 140px;
+        }
+
+        .top-nav-bar {
+            width: 90%;
+            max-width: 840px;
+            display: flex;
+            justify-content: flex-start;
+            padding: 25px 0 10px;
+        }
+
+        .online-badge {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+        }
+
+        .online-dot {
+            width: 8px; height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #22c55e;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px 40px;
+            max-width: 800px;
+        }
+
+        header p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.8rem, 5vw, 4.5rem);
+            font-weight: 300;
+            color: var(--text-main);
+        }
+
+        header h1 span {
+            font-style: italic;
+            color: var(--accent-gold);
+        }
+
+        .container {
+            max-width: 840px;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .countdown-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .countdown-card h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .timers {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .time-box {
+            border-right: 1px solid var(--border-color);
+            padding: 5px;
+        }
+        .time-box:last-child { border-right: none; }
+
+        .time-box span {
+            display: block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+
+        .time-box label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: var(--text-main);
+        }
+
+        .timeline {
+            position: relative;
+            margin-bottom: 60px;
+            padding-left: 25px;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 35px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30.5px;
+            top: 5px;
+            width: 10px; height: 10px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+        }
+
+        .timeline-date {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+
+        .timeline-content {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+        }
+
+        .timeline-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .memories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .polaroid {
+            background: #1a2230;
+            padding: 12px 12px 30px 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            transform: rotate(-1deg);
+        }
+        .polaroid:nth-child(even) { transform: rotate(1.5deg); }
+
+        .polaroid-img {
+            width: 100%;
+            height: 200px;
+            background: #0b0f19;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .polaroid-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .polaroid p {
+            font-family: 'Cormorant Garamond', serif;
+            text-align: center;
+            font-size: 1.05rem;
+            font-style: italic;
+        }
+
+        .distance-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .distance-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin-bottom: 12px;
+        }
+
+        .distance-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .promises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .promise-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 30px 25px;
+        }
+
+        .promise-card span {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .promise-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .promise-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .love-letter {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 45px 35px;
+            margin-bottom: 60px;
+        }
+
+        .love-letter h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .love-letter p {
+            font-size: 1rem;
+            line-height: 1.9;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .love-letter p.signature-text {
+            text-align: right;
+            margin-top: 30px;
+            color: var(--accent-gold);
+            font-style: italic;
+            font-size: 1.15rem;
+        }
+
+        .proposal-section {
+            text-align: center;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 50px 20px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .proposal-section h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            min-height: 50px;
+            align-items: center;
+            position: relative;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-yes {
+            background: var(--accent-gold);
+            color: #070913;
+            border-color: var(--accent-gold);
+        }
+
+        .btn-no {
+            background: transparent;
+            color: var(--text-muted);
+            position: absolute;
+        }
+
+        .music-player-bar {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 600px;
+            background: #121824;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 12px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+        }
+
+        .player-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .track-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .track-thumb {
+            width: 40px; height: 40px;
+            background: #070913;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        .track-details h4 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .track-details p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .play-pause-btn {
+            width: 36px; height: 36px;
+            background: var(--text-main);
+            color: #070913;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .player-progress-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        .progress-bar-bg {
+            flex-grow: 1;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            width: 35%;
+            height: 100%;
+            background: var(--accent-gold);
+        }
+
+        .player-bottom-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 6px;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        .playlist-btn {
+            background: none;
+            border: none;
+            color: var(--accent-gold);
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+
+        .success-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(7, 9, 19, 0.95);
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+        }
+
+        .success-overlay.active { display: flex; }
+
+        .success-box {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 40px 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .success-box h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+        }
+
+        .success-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .success-box button {
+            background: var(--accent-gold);
+            color: #070913;
+            border: none;
+            padding: 10px 25px;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-top: 1px solid var(--border-color);
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav-bar">
+        <div class="online-badge">
+            <span class="online-dot"></span>
+            <span>Always Connected</span>
+        </div>
+    </div>
+
+    <header>
+        <p>A Chronicle of Us</p>
+        <!-- ========================================== -->
+        <!-- 1. EDIT HER NAME HERE -->
+        <!-- ========================================== -->
+        <h1>For My Dearest <span>Priya</span></h1>
+    </header>
+
+    <div class="container">
+
+        <!-- COUNTDOWN -->
+        <div class="countdown-card">
+            <h2>Time Elapsed Since We Began</h2>
+            <!-- ========================================== -->
+            <!-- 2. EDIT YOUR START DATE (YYYY-MM-DD) -->
+            <!-- ========================================== -->
+            <div class="timers" id="countdown" data-start-date="2024-05-14T00:00:00">
+                <div class="time-box"><span id="days">0</span><label>Days</label></div>
+                <div class="time-box"><span id="hours">0</span><label>Hours</label></div>
+                <div class="time-box"><span id="minutes">0</span><label>Minutes</label></div>
+                <div class="time-box"><span id="seconds">0</span><label>Seconds</label></div>
+            </div>
+        </div>
+
+        <!-- OUR LOVE STORY TIMELINE -->
+        <h2 class="section-title">Our Love Story</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">Chapter I</div>
+                <div class="timeline-content">
+                    <h3>The Day Our Paths Crossed</h3>
+                    <p>The exact moment everything shifted and ordinary days suddenly gained a brand-new meaning.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Chapter II</div>
+                <div class="timeline-content">
+                    <h3>Our First Real Conversation</h3>
+                    <p>Hours felt like minutes as we talked about everything under the sun without running out of words.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Chapter III</div>
+                <div class="timeline-content">
+                    <h3>Choosing Each Other</h3>
+                    <p>The day we decided to walk side by side through whatever life brings our way.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 3. WALL OF MEMORIES (ADD YOUR IMAGES HERE) -->
+        <!-- Put your image file in the same folder, then change photo1.jpg to your filename -->
+        <!-- ========================================== -->
+        <h2 class="section-title">Wall of Memories</h2>
+        <div class="memories-grid">
+            <div class="polaroid">
+                <div class="polaroid-img">
+                    <img src="photo1.jpg" alt="Memory 1">
+                </div>
+                <p>Our favorite day together</p>
+            </div>
+            <div class="polaroid">
+                <div class="polaroid-img">
+                    <img src="photo2.jpg" alt="Memory 2">
+                </div>
+                <p>That unforgettable sunset</p>
+            </div>
+            <div class="polaroid">
+                <div class="polaroid-img">
+                    <img src="photo3.jpg" alt="Memory 3">
+                </div>
+                <p>Endless laughter</p>
+            </div>
+        </div>
+
+        <!-- DISTANCE BETWEEN US -->
+        <div class="distance-card">
+            <h3>Distance Between Us</h3>
+            <p>No matter how many miles separate us on a map, our hearts beat in the exact same rhythm. Every mile is just a temporary measurement until I get to hold you close again.</p>
+        </div>
+
+        <!-- PROMISES -->
+        <h2 class="section-title">My Promises To You</h2>
+        <div class="promises-grid">
+            <div class="promise-card">
+                <span>01</span>
+                <h3>Patience & Listening</h3>
+                <p>To always listen when you speak and hold space for you on your hardest days.</p>
+            </div>
+            <div class="promise-card">
+                <span>02</span>
+                <h3>Unwavering Support</h3>
+                <p>To be your biggest cheerleader in all your dreams and ambitions.</p>
+            </div>
+            <div class="promise-card">
+                <span>03</span>
+                <h3>Endless Laughter</h3>
+                <p>To keep finding reasons to make you smile, no matter how old we get.</p>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 4. EDIT YOUR LOVE LETTER WORDS HERE -->
+        <!-- ========================================== -->
+        <div class="love-letter">
+            <h2>A Note To My Premika</h2>
+            <p>Dearest Priya,</p>
+            <p>Type your own romantic words here. Tell her how much she means to you, what you love about her smile, and why she is so special in your life.</p>
+            <p>Add your second paragraph here about your favorite memories or future dreams together.</p>
+            <p class="signature-text">— Forever Yours, Rahul</p>
+        </div>
+
+        <!-- PROPOSAL -->
+        <div class="proposal-section">
+            <h2>Will you stay by my side, always?</h2>
+            <div class="btn-group">
+                <button class="btn btn-yes" onclick="sayYes()">Affirmative</button>
+                <button class="btn btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FLOATING BOTTOM MUSIC PLAYER BAR -->
+    <div class="music-player-bar">
+        <div class="player-top-row">
+            <div class="track-info">
+                <div class="track-thumb"><span>♫</span></div>
+                <div class="track-details">
+                    <h4 id="trackTitle">Our Special Vibe</h4>
+                    <p id="trackArtist">Playing for you</p>
+                </div>
+            </div>
+            <div class="player-controls">
+                <button class="control-btn" onclick="prevTrack()">⏮</button>
+                <button class="play-pause-btn" id="playBtn" onclick="togglePlay()">▶</button>
+                <button class="control-btn" onclick="nextTrack()">⏭</button>
+            </div>
+        </div>
+        <div class="player-progress-container">
+            <span id="currentTime">0:00</span>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+            <span id="totalTime">3:15</span>
+        </div>
+        <div class="player-bottom-actions">
+            <span>Playlist: <strong style="color:var(--accent-gold);">Our Vibe</strong></span>
+            <button class="playlist-btn" onclick="switchTrack()">Switch Song ♫</button>
+        </div>
+    </div>
+
+    <!-- CELEBRATION SUCCESS POPUP -->
+    <div class="success-overlay" id="successModal">
+        <div class="success-box">
+            <h2>Celebration! 🎉</h2>
+            <p>You’ve chosen correctly. My world is permanently better with you in it. I love you endlessly!</p>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <footer>
+        Curated with endless love.
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- 5. ADD YOUR REAL SONG FILE HERE (Optional) -->
+    <!-- Save an mp3 file in the same folder and change song.mp3 to your filename -->
+    <!-- ========================================== -->
+    <audio id="audioPlayer" loop>
+        <source src="song.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        // COUNTDOWN TIMER
+        const countdownEl = document.getElementById('countdown');
+        const startDate = new Date(countdownEl.getAttribute('data-start-date')).getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = now - startDate;
+
+            document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000);
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // REAL AUDIO & PLAYLIST LOGIC
+        const audio = document.getElementById('audioPlayer');
+        let isPlaying = false;
+        const playBtn = document.getElementById('playBtn');
+        const progressFill = document.getElementById('progressFill');
+        const trackTitle = document.getElementById('trackTitle');
+        const trackArtist = document.getElementById('trackArtist');
+
+        // ========================================== -->
+        // 6. EDIT YOUR PLAYLIST SONG NAMES HERE
+        // ========================================== -->
+        const playlist = [
+            { title: "Our Special Vibe", artist: "Forever Yours" },
+            { title: "The Song We First Heard", artist: "Memory Lane" },
+            { title: "All My Tomorrows", artist: "Dedicated To You" }
+        ];
+        let currentTrackIdx = 0;
+
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            playBtn.innerText = isPlaying ? "⏸" : "▶";
+            if (isPlaying) {
+                audio.play().catch(e => console.log("Audio play blocked or missing file"));
+            } else {
+                audio.pause();
+            }
+        }
+
+        function switchTrack() {
+            currentTrackIdx = (currentTrackIdx + 1) % playlist.length;
+            trackTitle.innerText = playlist[currentTrackIdx].title;
+            trackArtist.innerText = playlist[currentTrackIdx].artist;
+            isPlaying = true;
+            playBtn.innerText = "⏸";
+            audio.play().catch(e => console.log("Audio play blocked or missing file"));
+        }
+
+        function nextTrack() { switchTrack(); }
+        function prevTrack() { switchTrack(); }
+
+        let progress = 35;
+        setInterval(() => {
+            if (isPlaying) {
+                progress = (progress + 1) % 100;
+                progressFill.style.width = progress + "%";
+            }
+        }, 1000);
+
+        // MOVING NO BUTTON
+        const noBtn = document.getElementById('noBtn');
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 100);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = `${Math.max(20, x)}px`;
+            noBtn.style.top = `${Math.max(20, y)}px`;
+        }
+
+        // CELEBRATION POPUP
+        function sayYes() {
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
