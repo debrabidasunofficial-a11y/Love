@@ -492,7 +492,7 @@
     <header>
         <!-- EDIT HER NAME HERE -->
         <p>A Chronicle of Us</p>
-        <h1>For My Dearest <span>[Her Name]</span></h1>
+        <h1>For My Dearest <span>Peu Banerjee</span></h1>
     </header>
 
     <div class="container">
@@ -501,7 +501,7 @@
         <div class="countdown-card reveal">
             <h2>Time Elapsed Since We Began</h2>
             <!-- EDIT START DATE HERE (Format: YYYY-MM-DDTHH:MM:SS) -->
-            <div class="timers" id="countdown" data-start-date="2024-01-01T00:00:00">
+            <div class="timers" id="countdown" data-start-date="2025-07-18T00:00:00">
                 <div class="time-box">
                     <span id="days">0</span>
                     <label>Days</label>
@@ -620,8 +620,39 @@
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = now - startDate;
-
-            document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
             document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementB
+            document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000);
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // INTERACTIVE SECRET NOTE TOGGLE
+        function toggleSecret() {
+            const msg = document.getElementById('secretMsg');
+            msg.classList.toggle('show');
+        }
+
+        // PLAYFUL MOVING "NO" BUTTON
+        const noBtn = document.getElementById('noBtn');
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - 180);
+            const y = Math.random() * (window.innerHeight - 120);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = `${Math.max(20, x)}px`;
+            noBtn.style.top = `${Math.max(20, y)}px`;
+        }
+
+        // SUCCESS POPUP CONTROLS
+        function sayYes() {
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
